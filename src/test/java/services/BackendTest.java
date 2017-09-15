@@ -1,21 +1,17 @@
 package services;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by olehe on 15-Sep-17.
  *
  */
-class BackendTest {
-    @BeforeEach
-    void setUp() {
 
+public class BackendTest {
+    @Test
+    public void testSomething() {
+        assertTrue(true);
     }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
 }
