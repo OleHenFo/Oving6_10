@@ -1,7 +1,5 @@
 package services;
 
-import java.util.Date;
-
 /**
  * Created by olehe on 15-Sep-17.
  *
@@ -10,7 +8,7 @@ public class Booking {
     private String bookingId;
     private Kunde kunde;
     private int bord;
-    private Date tid;
+    private String tid;
     private int gjester;
 
     public String getBookingId() {
@@ -37,11 +35,11 @@ public class Booking {
         this.bord = bord;
     }
 
-    public Date getTid() {
+    public String getTid() {
         return tid;
     }
 
-    public void setTid(Date tid) {
+    public void setTid(String tid) {
         this.tid = tid;
     }
 

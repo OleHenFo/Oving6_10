@@ -7,16 +7,49 @@
     <script language="javascript">
         $(document).ready(function() {
             function update() {
-                $.get("rest/path", function(data){
+                $.get("rest/book", function(data){
                     $("#p").html(data);
                 });
             }
             update();
             window.setInterval(update, 1000);
+
+            $("#send").click(function () {
+                $.ajax({
+                    url: 'rest/book',
+                    type: 'POST',
+                    data: JSON.stringify({
+
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'application/json'
+                })
+            });
         });
     </script>
 </head>
 <body>
-    <p id="p"></p>
+    <p id="p">Test</p><br/>
+    <form>
+        Kunde id:<br/>
+        <input id="kunde_id" type="text"/><br/>
+        Kunde navn:<br/>
+        <input id="kunde_navn" type="text"/><br/>
+        Kortnr:<br/>
+        <input id="kortnr" type="text"/><br/>
+        Utløpsdato:<br/>
+        <input id="ut_dato" type="text"/><br/>
+        Kontrolnr:<br/>
+        <input id="kontrol" type="text"/><br/>
+        Bookingid:<br/>
+        <input id="booking_id" type="text"/><br/>
+        Bordnr:<br/>
+        <input id="bordnr" type="number"/><br/>
+        Tid:<br/>
+        <input id="tid" type="text"/><br/>
+        Antall gjester:<br/>
+        <input id="gjester" type="number"/><br/>
+        <input id="send" type="submit"/>
+    </form>
 </body>
 </html>

@@ -14,4 +14,5 @@ public class BookingServiceTest {
     public void testSomething() {
         assertTrue(true);
     }
+
 }

@@ -2,7 +2,6 @@ package services;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +10,9 @@ import java.util.Map;
  *
  */
 
-@Path("/path")
+@Path("/book")
 public class BookingService {
+    private static Map<String,Kunde> kunder = new HashMap<>();
     private static Map<String,Booking> bookinger = new HashMap<>();
 
     @GET
@@ -23,15 +23,16 @@ public class BookingService {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Booking> getBookinger() {
-        return bookinger.values();
+    @Produces(MediaType.TEXT_PLAIN)
+    public static String getBookinger() {
+        return bookinger.values().toString();
     }
 
     @POST
+    @Path("/{bookingId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addKunde(Booking booking) {
-        bookinger.put(booking.getBookingId(), booking);
+    public void addBooking(@PathParam("bookingId") String bookingId, Booking booking){
+        bookinger.put(bookingId,booking);
     }
 
     @DELETE
