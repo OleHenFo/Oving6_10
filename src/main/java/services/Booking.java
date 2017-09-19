@@ -7,9 +7,12 @@ package services;
 public class Booking {
     private String bookingId;
     private Kunde kunde;
-    private int bord;
+    private String bord;
     private String tid;
-    private int gjester;
+    private String gjester;
+    private String forrett;
+    private String hovedrett;
+    private String dessert;
 
     public String getBookingId() {
         return bookingId;
@@ -27,11 +30,11 @@ public class Booking {
         this.kunde = kunde;
     }
 
-    public int getBord() {
+    public String getBord() {
         return bord;
     }
 
-    public void setBord(int bord) {
+    public void setBord(String bord) {
         this.bord = bord;
     }
 
@@ -43,11 +46,35 @@ public class Booking {
         this.tid = tid;
     }
 
-    public int getGjester() {
+    public String getGjester() {
         return gjester;
     }
 
-    public void setGjester(int gjester) {
+    public void setGjester(String gjester) {
         this.gjester = gjester;
+    }
+
+    public String getForrett() {
+        return forrett;
+    }
+
+    public void setForrett(String forrett) {
+        this.forrett = forrett;
+    }
+
+    public String getHovedrett() {
+        return hovedrett;
+    }
+
+    public void setHovedrett(String hovedrett) {
+        this.hovedrett = hovedrett;
+    }
+
+    public String getDessert() {
+        return dessert;
+    }
+
+    public void setDessert(String dessert) {
+        this.dessert = dessert;
     }
 }

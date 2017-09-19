@@ -3,53 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script language="javascript">
         $(document).ready(function() {
-            function update() {
-                $.get("rest/book", function(data){
-                    $("#p").html(data);
+            function update(id) {
+                $.get("rest/bookinger/" + id, function(data){
+                    $("#p").html(JSON.stringify(data));
                 });
             }
-            update();
-            window.setInterval(update, 1000);
 
             $("#send").click(function () {
-                $.ajax({
-                    url: 'rest/book',
-                    type: 'POST',
-                    data: JSON.stringify({
+                var e1,e2,e3,hovedr,forrett,desser,booking;
+                e1 = document.getElementById("for");
+                forrett = e1.options[e1.selectedIndex].text;
+                e2 = document.getElementById("hoved");
+                hovedr = e2.options[e2.selectedIndex].text;
+                e3 = document.getElementById("dess");
+                desser = e3.options[e3.selectedIndex].text;
+                booking = {
+                    bookingId: $("#booking_id").val(),
+                    bord: $("#bordnr").val(),
+                    tid: $("#tid").val(),
+                    gjester: $("#gjester").val(),
+                    forrett: forrett,
+                    hovedrett: hovedr,
+                    dessert: desser,
+                    kunde: {
+                        kundeId: $("#kunde_id").val(),
+                        navn: $("#kunde_navn").val(),
+                        kortnr: $("#kortnr").val(),
+                        ut_dato: $("#ut_dato").val(),
+                        kontrol: $("#kontrol").val()
+                    }
+                };
 
-                    }),
+                $.ajax({
+                    url: 'rest/bookinger',
+                    type: 'POST',
+                    data: JSON.stringify(booking),
                     contentType: 'application/json; charset=utf-8',
-                    dataType: 'application/json'
-                })
+                    dataType: 'json'
+                });
             });
+
+            $("#delete").click(function () {
+                var b = $("#booking").val();
+                $.ajax({
+                    url: 'rest/bookinger/' + b,
+                    type: 'DELETE'
+                });
+            });
+
+            $("#getInfo").click(function () {
+                update($("#booking").val());
+            });
+
         });
     </script>
 </head>
 <body>
-    <p id="p">Test</p><br/>
-    <form>
-        Kunde id:<br/>
-        <input id="kunde_id" type="text"/><br/>
-        Kunde navn:<br/>
-        <input id="kunde_navn" type="text"/><br/>
-        Kortnr:<br/>
-        <input id="kortnr" type="text"/><br/>
-        Utløpsdato:<br/>
-        <input id="ut_dato" type="text"/><br/>
-        Kontrolnr:<br/>
-        <input id="kontrol" type="text"/><br/>
-        Bookingid:<br/>
-        <input id="booking_id" type="text"/><br/>
-        Bordnr:<br/>
-        <input id="bordnr" type="number"/><br/>
-        Tid:<br/>
-        <input id="tid" type="text"/><br/>
-        Antall gjester:<br/>
-        <input id="gjester" type="number"/><br/>
-        <input id="send" type="submit"/>
-    </form>
+    <h2>Booking service tester</h2>
+    Kunde id:<br/>
+    <input id="kunde_id" type="text"/><br/>
+    Kunde navn:<br/>
+    <input id="kunde_navn" type="text"/><br/>
+    Kortnr:<br/>
+    <input id="kortnr" type="text"/><br/>
+    Utløpsdato:<br/>
+    <input id="ut_dato" type="text"/><br/>
+    Kontrolnr:<br/>
+    <input id="kontrol" type="text"/><br/>
+    Bookingid:<br/>
+    <input id="booking_id" type="text"/><br/>
+    Bordnr:<br/>
+    <input id="bordnr" type="text"/><br/>
+    Tid:<br/>
+    <input id="tid" type="text"/><br/>
+    Antall gjester:<br/>
+    <input id="gjester" type="text"/><br/>
+    Bestilling:<br/>
+    Forrett:
+    <select id="for">
+        <option value="">----</option>
+        <option value="Suppe">Suppe</option>
+        <option value="Brød">Brød</option>
+        <option value="Ost">Ost</option>
+        <option value="Nachos">Nachos</option>
+    </select><br/>
+    Hovedrett:
+    <select id="hoved">
+        <option value="">----</option>
+        <option value="Burger">Burger</option>
+        <option value="Biff">Biff</option>
+        <option value="Spaghetti">Spaghetti</option>
+        <option value="Nachos">Nachos</option>
+    </select><br/>
+    Dessert:
+    <select id="dess">
+        <option value="">----</option>
+        <option value="Is-krem">Is-krem</option>
+        <option value="Sjokoladekake">Sjokoladekake</option>
+        <option value="Bløtkake">Bløtkake</option>
+        <option value="Nachos">Nachos</option>
+    </select><br/>
+    <button id="send">Send</button>
+    <h4>Info/edit:</h4>
+    Booking:<br/>
+    <input id="booking" type="text"/><br/>
+    <button id="getInfo">Get info</button><br/>
+    <button id="delete">Delete</button><br/>
+    <p id="p"></p><br/>
 </body>
 </html>

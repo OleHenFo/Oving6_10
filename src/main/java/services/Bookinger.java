@@ -2,6 +2,7 @@ package services;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +11,8 @@ import java.util.Map;
  *
  */
 
-@Path("/book")
-public class BookingService {
+@Path("/bookinger/")
+public class Bookinger {
     private static Map<String,Kunde> kunder = new HashMap<>();
     private static Map<String,Booking> bookinger = new HashMap<>();
 
@@ -19,26 +20,31 @@ public class BookingService {
     @Path("/{bookingId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Booking getBooking(@PathParam("bookingId") String bookingId) {
+        if (!bookinger.containsKey(bookingId)) {
+            throw new javax.ws.rs.NotFoundException();
+        }
         return bookinger.get(bookingId);
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public static String getBookinger() {
-        return bookinger.values().toString();
+    @Produces(MediaType.APPLICATION_JSON)
+    public static Collection<Booking> getBookinger() {
+        return bookinger.values();
     }
 
     @POST
-    @Path("/{bookingId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addBooking(@PathParam("bookingId") String bookingId, Booking booking){
-        bookinger.put(bookingId,booking);
+    public void addBooking(Booking booking){
+        bookinger.put(booking.getBookingId(),booking);
     }
 
     @DELETE
     @Path("/{bookingId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteBooking(@PathParam("bookingId") String bookingId){
+        if (!bookinger.containsKey(bookingId)||bookingId.equals("")) {
+            throw new javax.ws.rs.NotFoundException();
+        }
         bookinger.remove(bookingId);
     }
 }
