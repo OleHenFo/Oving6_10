@@ -47,9 +47,7 @@
 
                 booking = {
                     bookingId: $("#booking_id").val(),
-                    bord: {
-                        bordnr: $("#bordnr").val()
-                    },
+                    bord: $("#bordnr").val(),
                     dato: $("#dato").val().toString(),
                     tid: $("#tid").val().toString(),
                     gjester: $("#gjester").val().toString(),
@@ -66,13 +64,35 @@
                     }
                 };
 
-                $.ajax({
-                    url: 'rest/bookinger',
-                    type: 'POST',
-                    data: JSON.stringify(booking),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json'
+                var date = new Date(booking.dato+"T"+booking.tid+":00+02:00").setMinutes(Math.ceil(now.getMinutes() / 30) * 30);
+                $.get("rest/bord/" + date.getTime(), function(data){
+                    var ok = true;
+                    for(var i in data){
+                        if (i==booking.bord){
+                            alert("Table already booked, sorry!\nTry around "+date.setHours(date.getHours()+2).toTimeString());
+                            ok=false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        $.ajax({
+                            url: 'rest/bookinger',
+                            type: 'POST',
+                            data: JSON.stringify(booking),
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json'
+                        });
+                        $.ajax({
+                            url: 'rest/bord/' + JSON.stringify(date),
+                            type: 'POST',
+                            data: booking.bord,
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json'
+                        });
+                    }
                 });
+
+
             });
 
 
