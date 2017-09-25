@@ -7,7 +7,7 @@ package services;
 public class Booking {
     private String bookingId;
     private Kunde kunde;
-    private String bord;
+    private Bord bord;
     private String dato;
     private String tid;
     private String gjester;
@@ -32,11 +32,11 @@ public class Booking {
         this.kunde = kunde;
     }
 
-    public String getBord() {
+    public Bord getBord() {
         return bord;
     }
 
-    public void setBord(String bord) {
+    public void setBord(Bord bord) {
         this.bord = bord;
     }
 

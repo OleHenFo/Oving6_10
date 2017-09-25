@@ -3,6 +3,7 @@ package services;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,9 @@ import java.util.Map;
 @Path("/bookinger/")
 public class Bookinger {
     private static Map<String,Booking> bookinger = new HashMap<>();
-    private static final int ant_bord = 5;
+    private static Map<String,Bord> bord = new HashMap<>();
+    private static final int ant_bord = 4;
+    private static Map<Date,Integer> ledige = new HashMap<>();
 
     @GET
     @Path("/{bookingId}")

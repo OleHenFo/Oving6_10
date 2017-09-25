@@ -4,6 +4,7 @@ package services;
  * Created by olehe on 15-Sep-17.
  *
  */
+
 public class Kunde {
     private String kundeId;
     private String navn;

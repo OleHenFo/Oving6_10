@@ -47,7 +47,9 @@
 
                 booking = {
                     bookingId: $("#booking_id").val(),
-                    bord: $("#bordnr").val(),
+                    bord: {
+                        bordnr: $("#bordnr").val()
+                    },
                     dato: $("#dato").val().toString(),
                     tid: $("#tid").val().toString(),
                     gjester: $("#gjester").val().toString(),
@@ -106,7 +108,7 @@
     Bookingid:<br/>
     <input id="booking_id" type="text"/><br/>
     Bordnr:<br/>
-    <input id="bordnr" type="text"/><br/>
+    <input id="bordnr" type="number"/><br/>
     Dato:<br/>
     <input id="dato" type="date"/><br/>
     Tid:<br/>
