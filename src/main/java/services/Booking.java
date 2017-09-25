@@ -8,11 +8,13 @@ public class Booking {
     private String bookingId;
     private Kunde kunde;
     private String bord;
+    private String dato;
     private String tid;
     private String gjester;
     private String forrett;
     private String hovedrett;
     private String dessert;
+    private String drikker;
 
     public String getBookingId() {
         return bookingId;
@@ -76,5 +78,21 @@ public class Booking {
 
     public void setDessert(String dessert) {
         this.dessert = dessert;
+    }
+
+    public String getDrikker() {
+        return drikker;
+    }
+
+    public void setDrikker(String drikker) {
+        this.drikker = drikker;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
     }
 }

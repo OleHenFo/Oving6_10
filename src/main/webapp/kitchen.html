@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitchen</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+        table,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table{
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 25px;
+            width: 80%;
+        }
+        #bord{
+            width: 5%;
+        }
+        #mat{
+            width: 75%;
+        }
+        #drikke{
+            width: 20%;
+        }
+    </style>
+    <script language="javascript">
+        $(document).ready(function() {
+            function writeData(){
+                var toHtml,booking,i,time1,time2,time3;
+                toHtml = "";
+                toHtml += "<tr>"+
+                        "<th id='bord'>Bord</th>"+
+                        "<th id='mat' colspan='3'>Mat</th>"+
+                        "<th id='drikke'>Drikke</th>"+
+                    "</tr>";
+                $.get("rest/bookinger",function (data){
+                    for (i=0;i<data.length;i++){
+                        booking = data[i];
+                        time1 = new Date(booking.dato+"T"+booking.tid+":00+02:00");
+                        time2 = new Date(time1.getTime()+(1000*60*30));
+                        time3 = new Date(time2.getTime()+(1000*60*30));
+                        toHtml += "<tr>"+
+                                "<td>"+booking.bord+"</td>"+
+                                "<td>"+time1.getHours()+":"+time1.getMinutes()+" - "+booking.forrett+" x "+booking.gjester+"</td>"+
+                                "<td>"+time2.getHours()+":"+time2.getMinutes()+" - "+booking.hovedrett+" x "+booking.gjester+"</td>"+
+                                "<td>"+time3.getHours()+":"+time3.getMinutes()+" - "+booking.dessert+" x "+booking.gjester+"</td>"+
+                                "<td>"+booking.drikker+"</td></tr>";
+
+                    }
+                    $("#data").html(toHtml);
+                });
+            }
+            window.setInterval(writeData,2000)
+            writeData();
+        });
+    </script>
+</head>
+<body>
+    <table id="data">
+    </table>
+    <div id="test"></div>
+</body>
+</html>

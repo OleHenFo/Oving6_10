@@ -13,8 +13,8 @@ import java.util.Map;
 
 @Path("/bookinger/")
 public class Bookinger {
-    private static Map<String,Kunde> kunder = new HashMap<>();
     private static Map<String,Booking> bookinger = new HashMap<>();
+    private static final int ant_bord = 5;
 
     @GET
     @Path("/{bookingId}")
@@ -42,9 +42,6 @@ public class Bookinger {
     @Path("/{bookingId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteBooking(@PathParam("bookingId") String bookingId){
-        if (!bookinger.containsKey(bookingId)||bookingId.equals("")) {
-            throw new javax.ws.rs.NotFoundException();
-        }
         bookinger.remove(bookingId);
     }
 }
