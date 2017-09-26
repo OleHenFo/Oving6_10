@@ -64,7 +64,9 @@
                     }
                 };
 
-                var date = new Date(booking.dato+"T"+booking.tid+":00+02:00").setMinutes(Math.ceil(now.getMinutes() / 30) * 30);
+                var date = new Date(booking.dato+"T"+booking.tid+":00+02:00");
+                date.setMinutes(Math.ceil(date.getMinutes() / 30) * 30);
+
                 $.get("rest/bord/" + date.getTime(), function(data){
                     var ok = true;
                     for(var i in data){
@@ -75,6 +77,7 @@
                         }
                     }
                     if (ok) {
+                        console.log("woop");
                         $.ajax({
                             url: 'rest/bookinger',
                             type: 'POST',
@@ -83,9 +86,9 @@
                             dataType: 'json'
                         });
                         $.ajax({
-                            url: 'rest/bord/' + JSON.stringify(date),
+                            url: 'rest/bord/' + date.getTime(),
                             type: 'POST',
-                            data: booking.bord,
+                            data: JSON.stringify(booking.bord),
                             contentType: 'application/json; charset=utf-8',
                             dataType: 'json'
                         });

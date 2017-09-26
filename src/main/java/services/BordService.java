@@ -1,7 +1,9 @@
 package services;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,19 +14,28 @@ import java.util.Map;
 
 @Path("/bord")
 public class BordService {
-    private Map<String,ArrayList<Integer>> bord = new HashMap<>();
+    private static Map<String,ArrayList<Integer>> bord = new HashMap<>(999);
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<ArrayList<Integer>> checkDate() {
+        return bord.values();
+    }
 
     @GET
     @Path("/{date}")
-    @Produces("text/plain")
+    @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Integer> checkDate(@PathParam("date") String date) {
         return bord.get(date);
     }
 
     @POST
     @Path("/{date}")
-    @Consumes("text/plain")
-    public void getClichedMessage(@PathParam("date") String date,int bord) {
-        this.bord.get(date).add(bord);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void getClichedMessage(@PathParam("date") String date,int b) {
+        if (bord.get(date)==null){
+            bord.put(date,new ArrayList<Integer>());
+        }
+        bord.get(date).add(b);
     }
 }
