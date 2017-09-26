@@ -9,9 +9,10 @@ import static org.junit.Assert.assertTrue;
  *
  */
 
-public class BackendTest {
+public class BookingServiceTest {
     @Test
     public void testSomething() {
         assertTrue(true);
     }
+
 }
